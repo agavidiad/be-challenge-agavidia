@@ -3,6 +3,7 @@ const storeCompetition = require("../competitions/store")
 const storeTeam = require("../teams/store")
 const storePlayer = require("../players/store")
 const storeCoach = require("../coaches/store")
+const controller = require('./store')
 
 const importLeague = async (code) => {
     // Does it exist in the local database?
@@ -98,4 +99,7 @@ const saveAll = async (idCompetition, code) => {
     return result
 }
 
-module.exports = { importLeague }
+const reset = async () => { 
+    return controller.reset()
+}
+module.exports = { importLeague, reset }

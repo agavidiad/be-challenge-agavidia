@@ -13,7 +13,7 @@ storePlayer.existPlayerById = async (id) => {
     }
 }
 
-storePlayer.players = async (code, teamName) => {
+storePlayer.players = async (code, filter) => {
     try {
         const pool = await poolPromise
         const result = await pool.request()
@@ -22,9 +22,31 @@ storePlayer.players = async (code, teamName) => {
             from dbo.Players pl 
             INNER JOIN dbo.Teams t on pl.idTeam = t.id
             INNER JOIN dbo.Competitions c ON t.idCompetition = c.id
-            WHERE C.code = @code 
-            ${teamName != null && teamName.length > 0 ? ` AND UPPER(t.name) LIKE '%${teamName}%'` : ''}
+            WHERE C.code = @code
+            ${filter != null && filter.length > 0 ? ` AND UPPER(t.name) LIKE '%${filter}%'` : ''}
+            ${filter != null && filter.length > 0 ? ` OR UPPER(pl.name) LIKE '%${filter}%'` : ''}
             ORDER BY T.name, pl.name `)
+        return await result.recordset
+    } catch (error) {
+        console.log(error);
+        throw new Error(error);
+    }
+}
+
+storePlayer.getPlayersByTeamId = async (id) => {
+    try {
+        console.log(id)
+        const pool = await poolPromise
+        const result = await pool.request()
+            .input('id', sql.Int, id)
+            .query(`select t.id, t.name, t.shortName, t.address,
+            pl.name as playerName, pl.position ,pl.dateOfBirth as playerDateOfBirth, pl.nationality as playerNationality
+             ,c.name as coachName, c.dateOfBirth as coachDateOfBirth, c.nationality as coachNationality
+            from dbo.Teams T
+            LEFT JOIN dbo.Players pl  on pl.idTeam = t.id
+            LEFT JOIN dbo.Coaches c on t.id = c.idTeam
+            WHERE t.id = @id
+            ORDER BY pl.name `)
         return await result.recordset
     } catch (error) {
         console.log(error);

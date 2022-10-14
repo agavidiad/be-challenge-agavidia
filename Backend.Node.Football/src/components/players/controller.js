@@ -1,7 +1,12 @@
 const storePlayer = require("./store")
 
-const getPlayers = async (code, teamName) => {
-    return storePlayer.players(code, teamName)
+const getPlayers = async (code, filter) => {
+    return storePlayer.players(code, filter)
 }
 
-module.exports = { getPlayers }
+const getPlayersByTeamId = async (id) => {
+    return storePlayer.getPlayersByTeamId(id)
+}
+
+
+module.exports = { getPlayers, getPlayersByTeamId }
