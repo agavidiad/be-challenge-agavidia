@@ -4,7 +4,7 @@ const router = express.Router();
 const controller = require('./controller');
 router.get("/:code", async (req, res) => {
     try {
-        const code = req.params.code
+        const code = req.params.code.toUpperCase()
         await controller.importLeague(code).then((response) => {
             res.status(200).json(response)
         })

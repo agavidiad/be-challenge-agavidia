@@ -1,8 +1,8 @@
 const axios = require("axios");
 const storeCompetition = require("../competitions/store")
 const storeTeam = require("../teams/store")
-const storePlayer = require("../players/store");
-const storeCoach = require("../coaches/store");
+const storePlayer = require("../players/store")
+const storeCoach = require("../coaches/store")
 
 const importLeague = async (code) => {
     // Does it exist in the local database?
@@ -56,13 +56,15 @@ const saveAll = async (idCompetition, code) => {
             let idTeam = team.id
             storeTeam.existTeamById(idTeam).then((response) => {
                 if (parseInt(response.Count) == 0) {
-                    storeTeam.insertTeam({ idCompetition, team })
+                    storeTeam.insertTeam({ idCompetition, team }).then((response) => {
+
+                    }).catch((error) => {
+                        //revertir
+                    })
                     // console.log('cantidad de jugadores: ' + team.squad.length)
 
                     if (parseInt(team.squad.length) == 0) {
                         // insert coach
-                        console.log('sin jugadores ')
-                        console.log(team.coach)
                         storeCoach.insertCoach({ idTeam, coach: team.coach })
                         result = { status: 200, message: 'OK' }
 
@@ -70,8 +72,11 @@ const saveAll = async (idCompetition, code) => {
                         team.squad.forEach(player => {
                             storePlayer.existPlayerById(player.id).then((response) => {
                                 if (parseInt(response.Count) == 0) {
-                                    storePlayer.insertPlayer({ idTeam: idTeam, player: player })
-                                    result = { status: 200, message: 'OK' }
+                                    storePlayer.insertPlayer({ idTeam: idTeam, player: player }).then((response) => {
+                                        result = { status: 200, message: 'OK' }
+                                    }).catch((error) => {
+                                        //revertir
+                                    })
                                 }
                             })
                         })
