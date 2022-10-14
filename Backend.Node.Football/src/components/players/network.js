@@ -22,7 +22,6 @@ router.get("/:code/:filter?", async (req, res) => {
     try {
         const code = req.params.code.toUpperCase()
         const filter = req.params.filter == undefined ? req.params.filter : req.params.filter.toUpperCase()
-        console.log(filter)
         await controller.getPlayers(code, filter).then((response) => {
             if (parseInt(response.length) == 0) {
                 res.status(500).json({ status: 500, error: 'Código filtro no existe' })

@@ -10,7 +10,6 @@ const importLeague = async (code) => {
     const exist = await storeCompetition.getCompetitionByCode(code)
     let idCompetition = 0
     let result = {}
-    // console.log(exist)
     if (exist == undefined || exist.length === 0) {
         // Call REST API by Axios and insert DB
         await axios.get(`${process.env.FOOTBALL_DATA_URL}/competitions/${code}/`, {
@@ -54,7 +53,6 @@ const saveAll = async (idCompetition, code) => {
             let idTeam = team.id
             storeTeam.existTeamById(idTeam).then((response) => {
                 if (parseInt(response.Count) == 0) {
-                    console.log('no existe')
                     storeTeam.insertTeam({ idCompetition, team }).then((response) => {
                     }).catch((error) => {//revertir
                     })

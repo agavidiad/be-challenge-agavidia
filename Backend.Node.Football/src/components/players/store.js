@@ -35,7 +35,6 @@ storePlayer.players = async (code, filter) => {
 
 storePlayer.getPlayersByTeamId = async (id) => {
     try {
-        console.log(id)
         const pool = await poolPromise
         const result = await pool.request()
             .input('id', sql.Int, id)
