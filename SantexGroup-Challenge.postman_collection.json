@@ -95,7 +95,7 @@
 						},
 						{
 							"key": "filter",
-							"value": ""
+							"value": "paris"
 						}
 					]
 				}
@@ -150,11 +150,11 @@
 					"variable": [
 						{
 							"key": "name",
-							"value": "Sheriff "
+							"value": "Paris"
 						},
 						{
 							"key": "players",
-							"value": "yes"
+							"value": "players"
 						}
 					]
 				}
