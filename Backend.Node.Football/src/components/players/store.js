@@ -13,18 +13,17 @@ storePlayer.existPlayerById = async (id) => {
     }
 }
 
-storePlayer.players = async (code, playerName) => {
-    try {      
-        console.log(playerName)
+storePlayer.players = async (code, teamName) => {
+    try {
         const pool = await poolPromise
         const result = await pool.request()
             .input('code', sql.VarChar, code)
-            .query(`select pl.idTeam, pl.id, pl.name ,pl.position ,pl.dateOfBirth, pl.nationality, T.name as TeamName 
+            .query(`select pl.idTeam, pl.id, pl.name ,pl.position ,pl.dateOfBirth, pl.nationality, T.name as sTeamName 
             from dbo.Players pl 
             INNER JOIN dbo.Teams t on pl.idTeam = t.id
             INNER JOIN dbo.Competitions c ON t.idCompetition = c.id
             WHERE C.code = @code 
-            ${playerName != null && playerName.length ? ` AND t.name LIKE '%${playerName}%'` :''}
+            ${teamName != null && teamName.length > 0 ? ` AND UPPER(t.name) LIKE '%${teamName}%'` : ''}
             ORDER BY T.name, pl.name `)
         return await result.recordset
     } catch (error) {
@@ -32,8 +31,6 @@ storePlayer.players = async (code, playerName) => {
         throw new Error(error);
     }
 }
-
-
 
 storePlayer.insertPlayer = async ({ idTeam, player }) => {
     try {

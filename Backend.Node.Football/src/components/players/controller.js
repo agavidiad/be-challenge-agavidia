@@ -1,7 +1,7 @@
-const storePlayer = require("../players/store")
+const storePlayer = require("./store")
 
-const getPlayers = async (code, playerName) => {
-    return storePlayer.players(code, playerName)
+const getPlayers = async (code, teamName) => {
+    return storePlayer.players(code, teamName)
 }
 
 module.exports = { getPlayers }

@@ -1,14 +1,13 @@
 const express = require('express');
 const router = express.Router();
 const controller = require('./controller');
-router.get("/:code/:playerName?", async (req, res) => {
+router.get("/:name/:players?", async (req, res) => {
     try {
-        const code = req.params.code.toUpperCase()
-        const playerName = req.params.playerName == undefined ? req.params.playerName : req.params.playerName.toUpperCase()
-        console.log(playerName)
-        await controller.getPlayers(code, playerName).then((response) => {
+        const name = req.params.name
+        const players = req.params.players == undefined ? req.params.players : req.params.players.toUpperCase()
+        await controller.getTeams(name, players).then((response) => {
             if (parseInt(response.length) == 0) {
-                res.status(500).json({status: 500, error: 'Código filtro no existe'})
+                res.status(500).json({status: 500, error: 'Código o filtro no existe'})
             } else {
                 res.status(200).json(response)
             }           
