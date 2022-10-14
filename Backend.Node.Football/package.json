@@ -1,0 +1,25 @@
+{
+  "name": "backend.node.football",
+  "version": "1.0.0",
+  "description": "REST API FOOTBALL",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/agavidiad/be-challenge-agavidia.git"
+  },
+  "author": "ALEX GAVIDIA",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/agavidiad/be-challenge-agavidia/issues"
+  },
+  "homepage": "https://github.com/agavidiad/be-challenge-agavidia#readme",
+  "dependencies": {
+    "axios": "^1.1.2",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "mssql": "^9.0.1"
+  }
+}

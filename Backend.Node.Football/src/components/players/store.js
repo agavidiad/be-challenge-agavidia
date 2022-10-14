@@ -1,0 +1,34 @@
+const { poolPromise, sql } = require('../../util/mssql')
+const storePlayer = {};
+storePlayer.existPlayerById = async (id) => {
+    try {
+        const pool = await poolPromise
+        const result = await pool.request()
+            .input('id', sql.Int, id)
+            .query(`select count(*) as [Count] from dbo.Players where id=@id`)
+        return await result.recordset[0]
+    } catch (error) {
+        console.log(error);
+        throw new Error(error);
+    }
+}
+storePlayer.insertPlayer = async ({ idTeam, player }) => {
+    try {        
+        const pool = await poolPromise
+        const result = await pool.request()
+            .input('idTeam', sql.Int, idTeam)
+            .input('id', sql.Int, player.id)
+            .input('name', sql.VarChar, player.name)
+            .input('position', sql.VarChar, player.position)
+            .input('dateOfBirth', sql.DateTime, player.dateOfBirth)
+            .input('nationality', sql.VarChar, player.nationality)
+            .query(`insert into dbo.Players (idTeam,id,name,position,dateOfBirth,nationality,createdAt,updatedAt) 
+                values (@idTeam,@id,@name,@position,@dateOfBirth,@nationality,GETDATE(),GETDATE())`)
+        return result.recordset
+    } catch (error) {
+        console.log(error)
+        throw new Error(error)
+    }
+}
+
+module.exports = storePlayer;
