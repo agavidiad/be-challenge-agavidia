@@ -28,19 +28,16 @@ const importLeague = async (code) => {
             result = saveAll(idCompetition, code)
         }).catch((error) => {
             if (error.response) {
-                if (parseInt(error.response.status) == 400) {
-                    result = { status: 400, message: 'No existe el código de Competition' }
+                if (parseInt(error.response.status) == 404 || parseInt(error.response.status) == 400) {
+                    result = { status: parseInt(error.response.status), message: 'No existe el código de Competition' }
                 }
             }
         })
     } else {
-        idCompetition = exist.id
-        // console.log('competition ID ' + idCompetition)
         result = await saveAll(idCompetition, code)
-        // result = { status: 201, message: 'Competition exists -updated teams, players and coaches' }
     }
-
-    return { result }
+    if (result.status == 404 || result.status == 400) return result
+    return result
 }
 
 const saveAll = async (idCompetition, code) => {
@@ -57,38 +54,29 @@ const saveAll = async (idCompetition, code) => {
             let idTeam = team.id
             storeTeam.existTeamById(idTeam).then((response) => {
                 if (parseInt(response.Count) == 0) {
+                    console.log('no existe')
                     storeTeam.insertTeam({ idCompetition, team }).then((response) => {
-
-                    }).catch((error) => {
-                        //revertir
+                    }).catch((error) => {//revertir
                     })
-                    // console.log('cantidad de jugadores: ' + team.squad.length)
-
                     if (parseInt(team.squad.length) == 0) {
-                        // insert coach
                         storeCoach.insertCoach({ idTeam, coach: team.coach })
-                        result = { status: 200, message: 'OK' }
-
                     } else {
                         team.squad.forEach(player => {
                             storePlayer.existPlayerById(player.id).then((response) => {
                                 if (parseInt(response.Count) == 0) {
                                     storePlayer.insertPlayer({ idTeam: idTeam, player: player }).then((response) => {
-                                        result = { status: 200, message: 'OK' }
-                                    }).catch((error) => {
-                                        //revertir
+                                    }).catch((error) => {//revertir
                                     })
                                 }
                             })
                         })
                     }
-                } else {
-                    // just update - optional
+                } else {// just update - optional
                 }
-            }).catch((error) => {
-                //revertir
+            }).catch((error) => {//revertir
             })
         })
+        result = { status: 200, message: 'OK' }
     }).catch((error) => {
         if (error.response) {
             if (parseInt(error.response.status) == 400) {
@@ -99,7 +87,8 @@ const saveAll = async (idCompetition, code) => {
     return result
 }
 
-const reset = async () => { 
+const reset = async () => {
     return controller.reset()
 }
+
 module.exports = { importLeague, reset }

@@ -5,8 +5,8 @@ storeCompetition.getCompetitionByCode = async (code) => {
     try {
         const pool = await poolPromise
         const result = await pool.request()
-            .input('code', sql.VarChar, code)
-            .query(`select * from dbo.competitions where code=@code`)
+            .input('code', sql.VarChar, code.toUpperCase())
+            .query(`select * from dbo.competitions where UPPER(code)=@code`)
         return await result.recordset[0]
     } catch (error) {
         console.log(error)

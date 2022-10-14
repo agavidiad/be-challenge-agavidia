@@ -64,8 +64,12 @@ storePlayer.insertPlayer = async ({ idTeam, player }) => {
             .input('position', sql.VarChar, player.position)
             .input('dateOfBirth', sql.DateTime, player.dateOfBirth)
             .input('nationality', sql.VarChar, player.nationality)
-            .query(`insert into dbo.Players (idTeam,id,name,position,dateOfBirth,nationality,createdAt,updatedAt) 
-                values (@idTeam,@id,@name,@position,@dateOfBirth,@nationality,GETDATE(),GETDATE())`)
+            .query(`
+            IF NOT EXISTS(select * from dbo.Players where id = @id)
+            BEGIN
+                insert into dbo.Players (idTeam,id,name,position,dateOfBirth,nationality,createdAt,updatedAt) 
+                values (@idTeam,@id,@name,@position,@dateOfBirth,@nationality,GETDATE(),GETDATE())
+            END `)
         return result.recordset
     } catch (error) {
         console.log(error)
