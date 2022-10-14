@@ -11,7 +11,9 @@
 
 # Endpoints
 # GET Importar Liga
-- http://localhost:3000/importLeague/CLI 
+- el último parámetro es el código de Liga-Competition ejemplos:
+- http://localhost:3000/importLeague/CLI
+- http://localhost:3000/importLeague/ELC
 - Si realiza correctamente la importación mostrará: Status:200 | Message: "OK"
 - Si es un código inválido mostrará: Status:404 | Message: "No existe el código de Competition"
 # GET RESET LOCAL DE BASE DE DATOS
