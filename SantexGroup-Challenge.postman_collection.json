@@ -1,0 +1,165 @@
+{
+	"info": {
+		"_postman_id": "8688e5bf-1184-4767-8e8c-035da109c577",
+		"name": "SantexGroup\\Challenge",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "00 HelloWorld",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "01 ImportLeague",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/importLeague/:code",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"importLeague",
+						":code"
+					],
+					"variable": [
+						{
+							"key": "code",
+							"value": "CLI"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "reset",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/importLeague/reset/all",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"importLeague",
+						"reset",
+						"all"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "players",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/players/:code/:filter",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"players",
+						":code",
+						":filter"
+					],
+					"variable": [
+						{
+							"key": "code",
+							"value": "CL"
+						},
+						{
+							"key": "filter",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "players-by-team",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/players/teams/:id/players",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"players",
+						"teams",
+						":id",
+						"players"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "346"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "teams",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/teams/:name/:players",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"teams",
+						":name",
+						":players"
+					],
+					"variable": [
+						{
+							"key": "name",
+							"value": "Sheriff "
+						},
+						{
+							"key": "players",
+							"value": "yes"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
