@@ -1,4 +1,5 @@
 const { poolPromise, sql } = require('../../util/mssql')
+const boom = require('@hapi/boom')
 const storeCoach = {};
 storeCoach.existCoachById = async (idTeam, id) => {
     try {
@@ -9,8 +10,7 @@ storeCoach.existCoachById = async (idTeam, id) => {
             .query(`select count(*) as [Count] from dbo.Coaches where idTeam=@idTeam AND id=@id`)
         return await result.recordset[0]
     } catch (error) {
-        console.log(error);
-        throw new Error(error);
+        throw boom.boomify(error)
     }
 }
 storeCoach.insertCoach = async ({ idTeam, coach }) => {
@@ -26,8 +26,7 @@ storeCoach.insertCoach = async ({ idTeam, coach }) => {
                 values (@idTeam,@id,@name,@dateOfBirth,@nationality,GETDATE(),GETDATE())`)
         return result.recordset
     } catch (error) {
-        console.log(error)
-        throw new Error(error)
+        throw boom.boomify(error)
     }
 }
 

@@ -1,4 +1,5 @@
 const { poolPromise, sql } = require('../../util/mssql')
+const boom = require('@hapi/boom')
 const storeCompetition = {};
 
 storeCompetition.getCompetitionByCode = async (code) => {
@@ -9,8 +10,7 @@ storeCompetition.getCompetitionByCode = async (code) => {
             .query(`select * from dbo.competitions where UPPER(code)=@code`)
         return await result.recordset[0]
     } catch (error) {
-        console.log(error)
-        throw new Error(error)
+        throw boom.boomify(error)
     }
 }
 storeCompetition.insertCompetition = async ({ id, code, name, areaName }) => {
@@ -26,8 +26,7 @@ storeCompetition.insertCompetition = async ({ id, code, name, areaName }) => {
                     (@id, @code, @name, @areaName, getdate(), getdate())`)
         return await result.recordset
     } catch (error) {
-        console.log(error)
-        throw new Error(error)
+        throw boom.boomify(error)
     }
 };
 

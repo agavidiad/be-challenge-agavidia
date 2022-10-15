@@ -1,4 +1,5 @@
 const { poolPromise, sql } = require('../../util/mssql')
+const boom = require('@hapi/boom')
 const storePlayer = {};
 storePlayer.existPlayerById = async (id) => {
     try {
@@ -8,8 +9,7 @@ storePlayer.existPlayerById = async (id) => {
             .query(`select count(*) as [Count] from dbo.Players where id=@id`)
         return await result.recordset[0]
     } catch (error) {
-        console.log(error);
-        throw new Error(error);
+        throw boom.boomify(error)
     }
 }
 
@@ -28,8 +28,7 @@ storePlayer.getPlayers = async (code, filter) => {
             ORDER BY T.name, pl.name `)
         return await result.recordset
     } catch (error) {
-        console.log(error);
-        throw new Error(error);
+        throw boom.boomify(error)
     }
 }
 
@@ -48,8 +47,7 @@ storePlayer.getPlayersByTeamId = async (id) => {
             ORDER BY pl.name `)
         return await result.recordset
     } catch (error) {
-        console.log(error);
-        throw new Error(error);
+        throw boom.boomify(error)
     }
 }
 
@@ -71,8 +69,7 @@ storePlayer.insertPlayer = async ({ idTeam, player }) => {
             END `)
         return result.recordset
     } catch (error) {
-        console.log(error)
-        throw new Error(error)
+        throw boom.boomify(error)
     }
 }
 

@@ -1,4 +1,5 @@
 const { poolPromise, sql } = require('../../util/mssql')
+const boom = require('@hapi/boom')
 const store = {};
 
 store.reset = async () => {
@@ -13,8 +14,7 @@ store.reset = async () => {
             delete from dbo.Competitions;`)
         return result.recordset
     } catch (error) {
-        console.log(error)
-        throw new Error(error)
+        throw boom.boomify(error)
     }
 }
 module.exports = store;
