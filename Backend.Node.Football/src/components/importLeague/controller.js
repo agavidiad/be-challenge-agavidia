@@ -1,14 +1,46 @@
 const axios = require("axios");
+const { getAllCompetitionsAPI } = require('../competitions/controller')
 const storeCompetition = require("../competitions/store")
 const storeTeam = require("../teams/store")
 const storePlayer = require("../players/store")
 const storeCoach = require("../coaches/store")
-const controller = require('./store')
+const store = require('./store')
 const boom = require('@hapi/boom')
 
 const importLeague = async (req, res, next) => {
     try {
         const code = req.params.code.toUpperCase()
+        const idCompetition = await saveCompetition(code)
+        res.status(200).send(await saveDetails(idCompetition, code))
+    } catch (err) {
+        next(err)
+    }
+}
+
+const importAllCompetitions = async (req, res, next) => {
+    try {
+        // console.log(4%5)
+        // return
+        const quantity = req.params.quantity != undefined ? parseInt(req.params.quantity) : 1
+        const competitions = await getAllCompetitionsAPI(quantity)
+        let cont = 1
+        for await (const competition of competitions) {
+            if (cont % 6 === 0) {
+                await new Promise(resolve => setTimeout(resolve, 60000))
+            }
+            const idCompetition = await saveCompetition(competition.code)
+            await saveDetails(idCompetition, competition.code)
+            console.log(cont % 6)
+            cont++
+        }
+        res.status(200).send({ status: 200, message: `Se importaron ${quantity} ligas/competitions` })
+    } catch (error) {
+        next(error)
+    }
+}
+
+const saveCompetition = async (code) => {
+    try {
         let idCompetition = 0
         // Does the competition exist in the local database?
         const exist = await storeCompetition.getCompetitionByCode(code)
@@ -27,17 +59,15 @@ const importLeague = async (req, res, next) => {
                     name: response.data.name,
                     areaName: response.data.area.name
                 })
-            }).catch(() => {
-                throw boom.notFound('No existe el código')
+
             })
         }
-        res.status(200).send(await saveAll(idCompetition, code))
-    } catch (err) {
-        next(err)
+        return idCompetition
+    } catch (error) {
+        throw boom.boomify(error)
     }
 }
-
-const saveAll = async (idCompetition, code) => {
+const saveDetails = async (idCompetition, code) => {
     let result = {}
     // Call REST API by Axios and insert DB
     await axios.get(`${process.env.FOOTBALL_DATA_URL}/competitions/${code}/teams`, {
@@ -78,14 +108,14 @@ const saveAll = async (idCompetition, code) => {
         })
         result = { status: 200, message: 'OK' }
     }).catch((error) => {
-        throw boom.notFound('Teams: No existe el código')
+        throw boom.notFound('Teams: No existe el código ')
     })
     return result
 }
 
 const reset = async (req, res, next) => {
     try {
-        await controller.reset().then((response) => {
+        await store.reset().then((response) => {
             res.status(200).send({ status: 200, message: 'Se reseteó la base de datos local' })
         })
     } catch (err) {
@@ -94,4 +124,4 @@ const reset = async (req, res, next) => {
 }
 
 
-module.exports = { importLeague, reset }
+module.exports = { importLeague, reset, importAllCompetitions }
