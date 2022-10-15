@@ -59,7 +59,8 @@ const saveCompetition = async (code) => {
                     name: response.data.name,
                     areaName: response.data.area.name
                 })
-
+            }).catch(() => {
+                throw boom.notFound('No existe el código')
             })
         }
         return idCompetition
