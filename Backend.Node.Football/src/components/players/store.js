@@ -13,7 +13,7 @@ storePlayer.existPlayerById = async (id) => {
     }
 }
 
-storePlayer.players = async (code, filter) => {
+storePlayer.getPlayers = async (code, filter) => {
     try {
         const pool = await poolPromise
         const result = await pool.request()
