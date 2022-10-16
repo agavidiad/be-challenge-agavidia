@@ -25,33 +25,7 @@
 			"response": []
 		},
 		{
-			"name": "01 ImportLeague",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:3000/importLeague/:code",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "3000",
-					"path": [
-						"importLeague",
-						":code"
-					],
-					"variable": [
-						{
-							"key": "code",
-							"value": "CLI"
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "reset",
+			"name": "Reset database",
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -72,7 +46,61 @@
 			"response": []
 		},
 		{
-			"name": "players",
+			"name": "Import league by code",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/importLeague/:code",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"importLeague",
+						":code"
+					],
+					"variable": [
+						{
+							"key": "code",
+							"value": "cli"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Import all leagues",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/importLeague/get/all/:quantity",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"importLeague",
+						"get",
+						"all",
+						":quantity"
+					],
+					"variable": [
+						{
+							"key": "quantity",
+							"value": "6"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get players",
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -91,11 +119,11 @@
 					"variable": [
 						{
 							"key": "code",
-							"value": "CL"
+							"value": "ELC"
 						},
 						{
 							"key": "filter",
-							"value": "paris"
+							"value": ""
 						}
 					]
 				}
@@ -103,7 +131,7 @@
 			"response": []
 		},
 		{
-			"name": "players-by-team",
+			"name": "Get players by team",
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -123,7 +151,7 @@
 					"variable": [
 						{
 							"key": "id",
-							"value": "346"
+							"value": "65"
 						}
 					]
 				}
@@ -131,7 +159,7 @@
 			"response": []
 		},
 		{
-			"name": "teams",
+			"name": "Get teams",
 			"request": {
 				"method": "GET",
 				"header": [],
