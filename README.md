@@ -17,19 +17,18 @@ B --> D[CompetitionTeams]
 
 ## Pasos para ejecutar los servicios REST API localmente
 
-1. Tener instalado NODE versión v16.
+1. Instalar **Node** versión **v16** o superior **[link de descarga](https://nodejs.org/download/release/v16.17.0/)**
 2. Abrir proyecto backend carpeta: **Backend.Node.Football** (Usar el IDE de su preferencia) 
 3. Ejecutar el comando: `npm install`
-4. Optional: Instalar nodemon `npm install -g nodemon`
-5. Ejecutar comando: `node index` o `nodemon index`
-6. Ruta por defecto es: http://localhost:3000/
-7. Abrir postman y ejecutar las llamadas a los servicios REST API
+4. Ejecutar comando: `node index`
+5. Ruta por defecto es: http://localhost:3000/
+6. Abrir postman y ejecutar las llamadas a los servicios REST API
 
 
 ## Endpoints
 **GET Reset Database**
 - Sirve para eliminar todos los registros de la base de datos
->http://localhost:3000/importLeague/reset/all
+> http://localhost:3000/importLeague/reset/all
 
 **1. GET Importar Liga**
 - El último parámetro es el **código de Liga/Competition** ejemplos:
