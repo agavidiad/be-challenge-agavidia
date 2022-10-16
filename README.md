@@ -15,7 +15,7 @@ A --> D[CompetitionTeams]
 B --> D[CompetitionTeams]
 ```
 
-## Pasos para ejecutar los servicios REST API localmente
+## Instalación
 
 1. Instalar **Node** versión **v16** o superior **[link de descarga](https://nodejs.org/download/release/v16.17.0/)**
 2. Abrir proyecto backend carpeta: **Backend.Node.Football** (Usar el IDE de su preferencia) 
@@ -24,6 +24,15 @@ B --> D[CompetitionTeams]
 5. Ruta por defecto es: http://localhost:3000/
 6. Abrir postman y ejecutar las llamadas a los servicios REST API
 
+**Express:** Framework para crear API RESTful con Node.js
+
+## Librerías
+**Axios:** Es un Cliente HTTP basado en promesas para node. js y el navegador. Es isomorfico (= puede ejecutarse en el navegador y nodejs con el mismo código base). En el lado del servidor usa el modulo nativo http de node.
+Axios se basa en promesas, lo que le permite aprovechar async y await de JavaScript para obtener un código asíncrono más legible
+
+**Boom:** Boom es un manejador de errores que se presenta de una manera mucho más comprensible. Lo que nos permite es manejar errores de forma amigable.
+
+**Mssql:** Microsoft SQL Server client for Node.js
 
 ## Endpoints
 **GET Reset Database**
