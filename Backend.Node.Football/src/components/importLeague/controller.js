@@ -19,18 +19,16 @@ const importLeague = async (req, res, next) => {
 
 const importAllCompetitions = async (req, res, next) => {
     try {
-        // console.log(4%5)
-        // return
-        const quantity = req.params.quantity != undefined ? parseInt(req.params.quantity) : 1
+        const quantity = req.params.quantity
         const competitions = await getAllCompetitionsAPI(quantity)
         let cont = 1
         for await (const competition of competitions) {
-            if (cont % 6 === 0) {
+            if (cont % 5 === 0) {
                 await new Promise(resolve => setTimeout(resolve, 60000))
             }
             const idCompetition = await saveCompetition(competition.code)
             await saveDetails(idCompetition, competition.code)
-            console.log(cont % 6)
+            console.log(cont % 5)
             cont++
         }
         res.status(200).send({ status: 200, message: `Se importaron ${quantity} ligas/competitions` })

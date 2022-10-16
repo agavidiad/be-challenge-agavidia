@@ -8,6 +8,7 @@ const getAllCompetitionsAPI = async (quantity) => {
                 'X-Auth-Token': `${process.env.TOKEN}`
             }
         })
+        quantity = quantity != undefined ? parseInt(quantity) : result.data.competitions.lenght
         return result.data.competitions.slice(0, quantity)
     } catch (error) {
         throw boom.boomify(error)
