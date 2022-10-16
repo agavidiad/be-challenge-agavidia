@@ -20,8 +20,8 @@ B --> D[CompetitionTeams]
 1. Tener instalado NODE versión v16.
 2. Abrir proyecto backend carpeta: **Backend.Node.Football** (Usar el IDE de su preferencia) 
 3. Ejecutar el comando: `npm install`
-4. Instalar nodemon `npm install -g nodemon`
-5. Ejecutar comando: `nodemon index`
+4. Optional: Instalar nodemon `npm install -g nodemon`
+5. Ejecutar comando: `node index` o `nodemon index`
 6. Ruta por defecto es: http://localhost:3000/
 7. Abrir postman y ejecutar las llamadas a los servicios REST API
 
