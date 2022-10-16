@@ -4,6 +4,7 @@
 **No es necesario ejecutar el script de base de datos**, la base de datos se encuentra alojado en un servidor público.
 > Sólo si desean ejecutar la base de datos localmente deben usar el *[script](https://github.com/agavidiad/be-challenge-agavidia/blob/main/Database%20Scripts%20-%20Optional/MSSQL%20Challenge-SantexGroup.sql)*. 
 > Después configurar los accesos en el archivo *[.env](https://github.com/agavidiad/be-challenge-agavidia/blob/main/Backend.Node.Football/.env)* 
+> Sé perfectamente que no es una buena práctica subir el archivo .env al repositorio, pero para este challenge estará activo temporalmente.
 
 ## Database
 ```mermaid
