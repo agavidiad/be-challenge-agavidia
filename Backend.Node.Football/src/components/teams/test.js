@@ -1,3 +1,4 @@
+
 const { poolPromise, sql } = require('../../util/mssql')
 const boom = require('@hapi/boom')
 const storeTeam = {};
